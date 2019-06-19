@@ -1,0 +1,14 @@
+.navi {
+  min-height: 100vh;
+  min-width: 3.4rem;
+  width: 3.4rem;
+}
+
+
+
+
+@media(max-width: 900px){
+  .navi {
+    padding-top: 0px;
+  }
+}

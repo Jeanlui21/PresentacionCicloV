@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdn.anychart.com/releases/8.6.0/js/anychart-base.min.js" type="text/javascript"></script>
+</head>
+<body class="bg grey lighten-5">
+  <div class="row no-gutters"> <!-- Inicio de Row-->
+
+    <div class="bg blue-gradient navi mx-0 px-0">
+    <app-canvas-menu></app-canvas-menu>
+    </div>
+
+  <div class="col-md-11 col-sm-11 col- mx-auto px-0"> <!--Course component inicio-->
+    <div class="container-fuid mx-0 px-0">
+      <!--Barra de Informacion inicio-->
+      <div class="card py-2 px-2 mb-3">
+       <div class="d-sm-flex justify-content-between">
+        <div class="btn-group" mdbDropdown>
+
+
+          <button type="button" mdbBtn color="primary" class="waves-light"> Curso: {{ courseName }}</button>
+          <button type="button" mdbBtn color="info" class="dropdown-toggle dropdown-toggle-split mx-0 px-3" mdbDropdownToggle></button>
+
+          <div class="dropdown-menu">
+            <a (click)="basicModal2.show()" class="dropdown-item">Tareas Realizadas</a>
+            <a (click)="exportAsXLSX()"class="dropdown-item">Convertir a Excel</a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item">Enviar Mensaje <em>Proximamente</em> </a>
+          </div>
+
+        </div>
+        <mdb-navbar-brand>
+          <img src="assets/logo.png" height="40" class="d-inline-block align-top" alt="">
+        </mdb-navbar-brand>
+        </div>
+      </div>
+      <!-- Modal Estudiante -->
+
+
+
+<div mdbModal #basicModal2="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal2.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">Tareas y Laboratorios</h4>
+      </div>
+      <div class="modal-body">
+
+        <table mdbTable>
+          <thead>
+
+          </thead>
+          <tbody>
+            <tr mdbTableCol *ngFor="let el of assig">
+              <th scope="row">{{el.id}}</th>
+              <td>{{el.name}}</td>
+              <td>{{el.description}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" mdbBtn color="info" class="waves-light" aria-label="Close" (click)="basicModal2.hide()" mdbWavesEffect>Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+      <!--Barra de informacion fin -->
+      <div class="row">
+
+          <!-- Lado Izquierdo -->
+          <div class="col-lg-7 mb-4">
+
+            <!--  Card  -->
+            <div class="card shadow mb-4">
+
+              <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Notas de Alumnos
+                  <a (click)="basicModal.show()"><i class="fas fa-ellipsis-h pl-2"></i></a></h6>
+              </div>
+
+              <div mdbModal #basicModal="mdbModal"
+              class="modal fade right"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="myBasicModalLabel"
+              aria-hidden="true"
+              [config]="{backdrop: false, ignoreBackdropClick: false}">
+
+                <div class="modal-dialog modal-side modal-bottom-right " role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+                        <span aria-hidden="true">×</span>
+                      </button>
+                      <h4 class="modal-title w-100" id="myModalLabel">Alumnos:</h4>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="list-group" *ngFor="let alumnos of allStudentsData">
+                            <li class="list-group-item my-0 py-0 border border-0">{{ alumnos.nombre }}<span class="badge badge-primary badge-pill ml-3">{{ alumnos.notas }}</span> </li>
+                          </ul>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" mdbBtn color="info" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Cerrar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <app-bar *ngIf="datos" [datos]="datos" ></app-bar>
+
+            </div>
+            <div class="row">
+
+                <div class="col-lg-6 mb-4">
+                  <div class="card bg-danger text-white shadow">
+                      <div class="card-body">
+                          <div class="row px-3"><h6>Desaprobados</h6></div>
+                          <table  class="col-md-12">
+                              <tr>
+                              <th>Nombre</th>
+                              <th>Nota</th>
+                              </tr>
+                              <tr *ngFor="let mal of allStudentsFail ">
+                              <th>{{ mal.nombre }}</th>
+                              <th>{{ mal.notas }}</th>
+                              </tr>
+                          </table>
+                        </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-6 mb-4">
+                  <div class="card bg-success text-white shadow">
+                      <div class="card-body">
+                          <div class="row px-3"><h6>Aprobados</h6></div>
+                          <table class="col-md-12">
+                              <tr>
+                              <th>Nombre</th>
+                              <th>Nota</th>
+                              </tr>
+                              <tr *ngFor="let bien of allStudentsSuccess ">
+                              <th>{{ bien.nombre }}</th>
+                              <th>{{ bien.notas }}</th>
+                              </tr>
+                          </table>
+                        </div>
+                  </div>
+                </div>
+        </div>
+
+          </div>
+
+          <!-- Lado Izquierdo-->
+          <div class="col-lg-5 mb-4">
+              <div class="col-md-12">
+                  <div class="card shadow mb-4">
+                      <div class="card-header py-3 text-center">
+                        <h6 class="m-0 font-weight-bold text-primary text-center">Promedio general</h6>
+                      </div>
+                      <div class="card-body text-center">
+                        <h1>{{ average }}</h1>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                          <h6 class="m-0 font-weight-bold text-primary text-center">Contribución</h6>
+                        </div>
+                        <div class="card-body text-center">
+                          <h6> Porcentaje de contribución del estudiante al promedio final</h6>
+                          <app-pie *ngIf="datos" [datos]="datos" [average]="average"></app-pie>
+                       </div>
+                    </div>
+                  </div>
+
+      </div>
+      </div>
+    </div>
+  </div> <!--Course component fin-->
+  </div> <!-- Fin de Row-->
+</body>
+</html>
+

@@ -1,0 +1,45 @@
+
+
+  <div class="col-md-12 mx-0 px-0 text-center py-3 mt-0" *ngIf="isLogged"
+  mdbPopover="Cerrar Sesión"
+  placement="right"
+  mdbWavesEffect
+  triggers="hover">
+   <a (click)="onLogout()" class="text-light"><i class="fas fa-power-off fa-lg"></i></a>
+  </div>
+
+  <div class="col-md-12 mx-0 px-0 text-center py-3 mt-0" *ngIf="!isLogged"
+  mdbPopover="Ingresar"
+  placement="right"
+  mdbWavesEffect
+  triggers="hover">
+   <a routerLink="/user/login" class="text-light"><i class="fas fa-sign-in-alt"></i></a>
+  </div>
+
+  <hr class="my-1">
+
+  <div class="col-md-12 mx-0 px-0 text-center py-2 bg warning-color my-0" *ngIf="isLogged"
+  mdbPopover="Regresar"
+  placement="right"
+  mdbWavesEffect
+  triggers="hover">
+   <a (click)="goBack()" class="text-white" ><i class="fas fa-chevron-circle-left fa-lg"></i></a>
+  </div>
+
+  <div class="col-md-12 mx-0 px-0 text-center py-3" *ngIf="isLogged"
+  mdbPopover="Profesores"
+  placement="right"
+  mdbWavesEffect
+  triggers="hover">
+   <a href="/teachers" class="text-light"><i class="fas fa-chalkboard-teacher"></i></a>
+  </div>
+
+
+
+  <div class="col-md-12 mx-0 px-0 text-center py-3" *ngIf="isLogged"
+  mdbPopover="Cursos"
+  placement="right"
+  mdbWavesEffect
+  triggers="hover">
+   <a href="/courses" class="text-light"><i class="fas fa-book-open"></i></a>
+  </div>
